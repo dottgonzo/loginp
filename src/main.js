@@ -66,11 +66,11 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
 
   if (!brand) brand = {}
 
-  if (!brand.title) style.title = defaultBrand.title
-  if (!brand.credits) style.credits = defaultBrand.credits
-  if (!brand.termsLink) style.termsLink = defaultBrand.termsLink
-  if (!brand.logoImg) style.logoImg = defaultBrand.logoImg
-  if (!brand.brandLink) style.brandLink = defaultBrand.brandLink
+  if (!brand.title) brand.title = defaultBrand.title
+  if (!brand.credits) brand.credits = defaultBrand.credits
+  if (!brand.termsLink) brand.termsLink = defaultBrand.termsLink
+  if (!brand.logoImg) brand.logoImg = defaultBrand.logoImg
+  if (!brand.brandLink) brand.brandLink = defaultBrand.brandLink
 
 
   // draw the page
