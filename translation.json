@@ -1,0 +1,24 @@
+{
+    "en": {
+        "login": "Login",
+        "register": "Register",
+        "here":"here",
+        "notamember":"Not a Member",
+        "registered":"Just registered",
+        "with":"with",
+        "or":"or",
+        "termsconditions":"Terms and Conditions",
+        "accept":"Accept the"
+    },
+    "it": {
+        "login": "Entra",
+        "register": "Registrati",
+        "here":"qui",
+        "notamember":"Non ancora Membro",
+        "registered":"Già registrato",
+        "with":"con",
+        "or":"o",
+        "termsconditions":"Termini e le Condizioni",
+        "accept":"Accetta i"
+    }
+}

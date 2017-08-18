@@ -1,16 +1,24 @@
 <template>
   <div id="mainlogincontainer" v-bind:style="{backgroundColor:$store.state.style.backgroundColor}">
     <div id="innerlogincontainer" style="height: 100vh;width:100vw;display:flex;justifyContent:center;alignItems:center">
-      <div class="desktop" style="position:absolute;left:5vw;top:3vh">
-        <h1>{{$store.state.brand.title}}</h1>
-      </div>
-      <div style="padding:2vw;max-width:500px;margin:auto;position:absolute;margin-top:-5vh;background-color:white">
+      <!--
+              <div class="desktop" style="position:absolute;left:6vw;top:6vh">
+                <div style="font-size:40px;font-weight:bold">{{$store.state.brand.title}}</div>
+              </div>
+              -->
+      <div id="loginarea" v-bind:style="{borderColor:$store.state.style.contentBorderColor}">
         <div style="text-align:center">
-          <div style="margin:auto auto 30px auto;font-size:34px">
+          <div style="font-size:34px;font-weight:bold;margin-top:25px;text-shadow:1px 1px 8px #a5a5a5;">
+            <div style="height:60px;line-height:60px">
+              <img style="float:left;max-height:60px" v-bind:src="$store.state.brand.logoImg" />
+              <div style="display:inline-block">{{$store.state.brand.title}}</div>
+            </div>
+          </div>
+          <div style="margin:25px auto 15px auto;font-size:26px">
 
-            <span v-if="$store.state.registerMode">register</span>
-            <span v-else>login</span>
-            with
+            <span v-if="$store.state.registerMode">{{$t("register")}}</span>
+            <span v-else>{{$t("login")}}</span>
+            {{$t("with")}}
 
           </div>
 
@@ -22,20 +30,21 @@
         </div>
         <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
           <span style="font-size: 30px; background-color: white; padding: 0 20px;">
-            or
+            {{$t("or")}}
             <!--Padding is optional-->
           </span>
         </div>
         <loginform />
       </div>
-      <div v-bind:style="{backgroundColor:$store.state.style.footerColor,position:'absolute',bottom:'0px',width:'100%'}">
-        <div style="margin:5px;font-weight:bold">
+      <div id="login_footer" v-bind:style="{backgroundColor:$store.state.style.footerColor,position:'absolute',bottom:'0px',width:'100%',borderTop:'solid 1px',borderTopColor:$store.state.style.footerBorderColor,paddingBottom:'5px'}">
+
+        <div style="margin:10px auto 5px 10px;font-weight:bold">
           {{$store.state.brand.credits}}
         </div>
-        <div style="margin-left:5px" class="loginpage_smallestsize">
+        <div style="margin-left:15px" class="loginpage_smallestsize">
 
-          <div style="float:left;margin:5px">Login page by dottgonzo</div>
-          <div style="float:right;margin:auto 10px auto auto">
+          <div style="float:left;margin:5px 0px 0px 0px">Login page by dottgonzo</div>
+          <div style="float:right;margin:5px 10px auto auto">
             <div>Icons made by
               <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from
               <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
@@ -72,77 +81,58 @@ export default {
 }
 </script>
 <style scoped>
+#loginarea {
+  padding: 5vw;
+  max-width: 500px;
+  margin: auto;
+  position: absolute;
+  margin-top: -5vh;
+  background-color: white;
+  border: 1px solid
+}
+
+
+
+
 /* -----------------------------------
 IPHONE 
 ------------------------------------ */
 
-@media only screen and (max-width: 320px) {
-  .desktop {
-    display: none
-  }
-  .mobile {
-    display: block
-  }
+@media only screen and (max-width: 450px) {
   .loginpage_smallestsize {
     font-size: 8px
   }
 }
 
+@media only screen and (min-width: 451px) and (max-width: 500px) {
+  .loginpage_smallestsize {
+    font-size: 10px
+  }
+}
 
+@media only screen and (min-width: 501px) {
+  .loginpage_smallestsize {
+    font-size: 12px
+  }
+}
 
-
-
-
-/* -----------------------------------
-IPAD PORTRAIT
------------------------------------- */
-
-@media only screen and (min-width: 768px) {
+@media only screen and (max-height: 570px) {
+  #innerlogincontainer {
+    display: block!important;
+    width: auto!important;
+    height: auto!important;
+  }
+  #loginarea {
+    position: inherit!important
+  }
   .desktop {
-    display: block
-  }
-  .mobile {
     display: none
   }
-  .loginpage_smallestsize {
-    font-size: 12px
+  #login_footer {
+    display: block!important;
+    position: inherit!important
   }
 }
 
-
-
-
-
-
-
-/* -----------------------------------
-IPAD LANDSCAPE + NETBOOK
------------------------------------- */
-
-@media only screen and (min-width: 1024px) {
-  .mobile {
-    display: none
-  }
-  .loginpage_smallestsize {
-    font-size: 12px
-  }
-}
-
-
-
-
-
-
-/* -----------------------------------
-DESKTOP
------------------------------------- */
-
-@media only screen and (min-width: 1200px) {
-  .mobile {
-    display: none
-  }
-  .loginpage_smallestsize {
-    font-size: 14px
-  }
-}
+@media only screen and (min-height: 751px) {}
 </style> 

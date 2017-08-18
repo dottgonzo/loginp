@@ -25,17 +25,17 @@
 </div>
 
       <div style="margin:10px auto 30px 10px" v-if="$store.state.registerMode">
-        <input type="checkbox" style="float:left;width:auto!important;margin-right:8px"> accept terms and conditions
+        <input type="checkbox" style="float:left;width:auto!important;margin-right:8px"> {{$t("accept")}} <a v-bind:href="$store.state.brand.termsLink">{{$t("termsconditions")}}</a>
         </div>
 
 
 <div>
       <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)">
         <span v-if="$store.state.registerMode">
-          Register
+          {{$t("register")}}
         </span>
         <span v-else>
-          Login
+          {{$t("login")}}
         </span>
 
       </a>
@@ -43,8 +43,8 @@
     <div style="margin-top:30px;text-align:center">
 
     
-      <span v-if="$store.state.registerMode">Registered? Members <a href="javascript:void(0)" v-on:click="switchmode($store)">login here</a></span>
-      <span v-else>Not a member? <a href="javascript:void(0)" v-on:click="switchmode($store)">register here</a></span>
+      <span v-if="$store.state.registerMode">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("login")}} {{$t("here")}}</a></span>
+      <span v-else>{{$t("notamember")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("register")}} {{$t("here")}}</a></span>
     </a>
 
 
