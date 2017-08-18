@@ -1,0 +1,13 @@
+{
+  "name": "loginpage",
+  "description": "simple login page to mount in vue, compatible with auth dottgonzo/auth docker server Edit",
+  "main": "dist/build.js",
+  "authors": [
+    "Dario Caruso <dev@dariocaruso.info>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "login"
+  ],
+  "homepage": "https://github.com/dottgonzo/loginp"
+}
