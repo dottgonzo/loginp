@@ -37,8 +37,8 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
     style = {
       text: '',
       backgroundColor: 'rgba(244, 241, 255, 0.5)',
-      link: '',
-      focus: ''
+      footerColor: 'white',
+      buttonColor: '#4CAF50'
 
     }
   }

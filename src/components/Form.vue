@@ -23,8 +23,14 @@
 
     
 </div>
+
+      <div style="margin:10px auto 30px 10px" v-if="$store.state.registerMode">
+        <input type="checkbox" style="float:left;width:auto!important;margin-right:8px"> accept terms and conditions
+        </div>
+
+
 <div>
-      <a style="margin-left:10px" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)">
+      <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)">
         <span v-if="$store.state.registerMode">
           Register
         </span>
@@ -34,10 +40,10 @@
 
       </a>
     </div>
-    <div style="margin-top:50px;text-align:center">
+    <div style="margin-top:30px;text-align:center">
 
     
-      <span v-if="$store.state.registerMode"><a href="javascript:void(0)" v-on:click="switchmode($store)">login</a></span>
+      <span v-if="$store.state.registerMode">Registered? Members <a href="javascript:void(0)" v-on:click="switchmode($store)">login here</a></span>
       <span v-else>Not a member? <a href="javascript:void(0)" v-on:click="switchmode($store)">register here</a></span>
     </a>
 
@@ -125,7 +131,16 @@ export default {
 * { box-sizing:border-box; }
 
 /* basic stylings ------------------------------------------ */
-
+.loginpage_button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 13px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 
 .container 		{ 
   font-family:'Roboto';
