@@ -40,7 +40,7 @@
 
         <div style="margin:10px auto 0px 5px;font-weight:bold">
           <div v-if="$store.state.brand.creditsLink">
-          <a v-bind:href="$store.state.brand.creditsLink">{{$store.state.brand.credits}}</a>
+          <a target="_blank" v-bind:href="$store.state.brand.creditsLink">{{$store.state.brand.credits}}</a>
           </div>
           <div v-else>
           {{$store.state.brand.credits}}
