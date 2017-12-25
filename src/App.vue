@@ -42,15 +42,7 @@
           {{$store.state.brand.credits}}
         </div>
         <div style="margin-left:15px" class="loginpage_smallestsize">
-
-          <div style="float:left;margin:5px 0px 0px 0px">Login page by dottgonzo</div>
-          <div style="float:right;margin:5px 10px auto auto">
-            <div>Icons made by
-              <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from
-              <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
-              <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-            </div>
-          </div>
+          <div style="float:right;margin:5px 0px 0px 0px">Login page by dottgonzo</div>
         </div>
       </div>
     </div>
