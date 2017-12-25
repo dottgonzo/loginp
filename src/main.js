@@ -61,7 +61,8 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
     credits: 'brand credits',
     termsLink: 'terms.html',
     logoImg: 'https://i.pinimg.com/736x/33/b8/69/33b869f90619e81763dbf1fccc896d8d--lion-logo-modern-logo.jpg',
-    brandLink: ''
+    brandLink: '',
+    creditsLink: ''
   }
 
   if (!brand) brand = {}
@@ -71,6 +72,7 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
   if (!brand.termsLink) brand.termsLink = defaultBrand.termsLink
   if (!brand.logoImg) brand.logoImg = defaultBrand.logoImg
   if (!brand.brandLink) brand.brandLink = defaultBrand.brandLink
+  if (!brand.creditsLink) brand.creditsLink = defaultBrand.creditsLink
 
 
   // draw the page

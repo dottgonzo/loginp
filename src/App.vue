@@ -39,7 +39,12 @@
       <div id="login_footer" v-bind:style="{backgroundColor:$store.state.style.footerColor,position:'absolute',bottom:'0px',width:'100%',borderTop:'solid 1px',borderTopColor:$store.state.style.footerBorderColor,paddingBottom:'0px'}">
 
         <div style="margin:10px auto 0px 5px;font-weight:bold">
+          <div v-if="$store.state.brand.creditsLink">
+          <a v-bind:href="$store.state.brand.creditsLink">{{$store.state.brand.credits}}</a>
+          </div>
+          <div v-else>
           {{$store.state.brand.credits}}
+          </div>
         </div>
         <div style="margin-left:15px" class="loginpage_smallestsize">
           <div style="float:right;margin:5px 2px 0px 0px">Login page by d0tt60n20</div>
