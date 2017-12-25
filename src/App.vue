@@ -1,6 +1,6 @@
 <template>
   <div id="mainlogincontainer" v-bind:style="{backgroundColor:$store.state.style.backgroundColor}">
-    <div id="innerlogincontainer" style="height: 100vh;width:100vw;display:flex;justifyContent:center;alignItems:center">
+    <div id="innerlogincontainer" style="height: 95vh;width:100%;display:flex;justifyContent:center;alignItems:center">
       <!--
               <div class="desktop" style="position:absolute;left:6vw;top:6vh">
                 <div style="font-size:40px;font-weight:bold">{{$store.state.brand.title}}</div>
