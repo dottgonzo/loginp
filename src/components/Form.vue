@@ -6,7 +6,7 @@
 
 
     <div class="group" style="margin-bottom:30px;">      
-      <input v-model="passw" type="text" required>
+      <input v-model="email" type="text" required>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
@@ -14,7 +14,7 @@
 
 
     <div class="group" style="margin-bottom:30px;">      
-      <input v-model="email" type="text" required>
+      <input v-model="passw" type="text" required>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
