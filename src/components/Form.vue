@@ -40,7 +40,7 @@
 
       </a>
     </div>
-    <div v-if="!$store.state.notAllowRegitration" style="margin-top:30px;text-align:center">
+    <div v-if="!$store.state.brand.notAllowRegitration" style="margin-top:30px;text-align:center">
 
     
       <span v-if="$store.state.registerMode">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("login")}} {{$t("here")}}</a></span>
