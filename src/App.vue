@@ -14,14 +14,12 @@
               <div style="display:inline-block">{{$store.state.brand.title}}</div>
             </div>
           </div>
-          <div style="margin:25px auto 15px auto;font-size:26px;min-height:25px">
-      <div v-if="authenticators.length>0">
+          <div v-if="authenticators.length>0" style="margin:25px auto 15px auto;font-size:26px;min-height:25px">
 
             <span v-if="$store.state.registerMode">{{$t("register")}}</span>
             <span v-else>{{$t("login")}}</span>
             {{$t("with")}}
 
-          </div>
 
       </div>
 
