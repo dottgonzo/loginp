@@ -10,7 +10,7 @@
         <div style="text-align:center">
           <div style="font-size:34px;font-weight:bold;margin-top:25px;text-shadow:1px 1px 8px #a5a5a5;">
             <div style="height:60px;line-height:60px">
-              <img style="float:left;max-height:60px" v-bind:src="$store.state.brand.logoImg" />
+              <img v-if="$store.state.brand.logoImg" style="float:left;max-height:60px" v-bind:src="$store.state.brand.logoImg" />
               <div style="display:inline-block">{{$store.state.brand.title}}</div>
             </div>
           </div>

@@ -14,7 +14,7 @@
 
 
     <div class="group" style="margin-bottom:30px;">      
-      <input v-model="passw" type="text" required>
+      <input v-model="passw" type="password" required>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
@@ -40,12 +40,11 @@
 
       </a>
     </div>
-    <div style="margin-top:30px;text-align:center">
+    <div v-if="!$store.state.notAllowRegitration" style="margin-top:30px;text-align:center">
 
     
       <span v-if="$store.state.registerMode">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("login")}} {{$t("here")}}</a></span>
       <span v-else>{{$t("notamember")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("register")}} {{$t("here")}}</a></span>
-    </a>
 
 
 

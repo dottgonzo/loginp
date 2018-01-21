@@ -70,10 +70,9 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
   if (!brand.title) brand.title = defaultBrand.title
   if (!brand.credits) brand.credits = defaultBrand.credits
   if (!brand.termsLink) brand.termsLink = defaultBrand.termsLink
-  if (!brand.logoImg) brand.logoImg = defaultBrand.logoImg
+  if (!brand.logoImg) brand.logoImg = false
   if (!brand.brandLink) brand.brandLink = defaultBrand.brandLink
   if (!brand.creditsLink) brand.creditsLink = defaultBrand.creditsLink
-
 
   // draw the page
   // $('#' + mountId).html('<page-auth />')
@@ -84,7 +83,8 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
       registerMode: false,
       loginSucceeds: loginSucceeds,
       brand: brand,
-      style: style
+      style: style,
+      notAllowRegitration: brand.notAllowRegitration
     },
     mutations: {
       switchMode(state) {
