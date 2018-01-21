@@ -14,7 +14,8 @@
               <div style="display:inline-block">{{$store.state.brand.title}}</div>
             </div>
           </div>
-          <div style="margin:25px auto 15px auto;font-size:26px">
+          <div style="margin:25px auto 15px auto;font-size:26px;min-height:25px">
+      <div v-if="authenticators.length>0">
 
             <span v-if="$store.state.registerMode">{{$t("register")}}</span>
             <span v-else>{{$t("login")}}</span>
@@ -22,17 +23,22 @@
 
           </div>
 
+      </div>
+
         </div>
         <div style="text-align:center;margin-bottom:10px">
           <span style="width:80px;text-align:center;display:inline-block" v-for="a in authenticators">
             <providerlink v-bind:authenticator="a" />
           </span>
         </div>
-        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+        <div v-if="authenticators.length>0" style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
           <span style="font-size: 30px; background-color: white; padding: 0 20px;">
             {{$t("or")}}
             <!--Padding is optional-->
           </span>
+        </div>
+        <div v-else style="min-height:22px">
+
         </div>
         <loginform />
       </div>
@@ -56,26 +62,29 @@
 </template>
 
 <script>
-import Loginform from './components/Form.vue'
-import Providerlink from './components/Providerlink.vue'
-import * as oAuth2 from 'oauth2-js-lib'
+import Loginform from "./components/Form.vue";
+import Providerlink from "./components/Providerlink.vue";
+import * as oAuth2 from "oauth2-js-lib";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Loginform,
     Providerlink
   },
   computed: {
     authenticators() {
-      return this.$store.state.authenticators
+      return this.$store.state.authenticators;
     }
   },
   mounted() {
-    const lman = new oAuth2.authComposer(this.$store.state.serverUri, this.$store.state.authenticators)
-    lman.onLogin(this.$store.state.loginSucceeds)
+    const lman = new oAuth2.authComposer(
+      this.$store.state.serverUri,
+      this.$store.state.authenticators
+    );
+    lman.onLogin(this.$store.state.loginSucceeds);
   }
-}
+};
 </script>
 <style scoped>
 #loginarea {
@@ -85,11 +94,8 @@ export default {
   position: absolute;
   margin-top: -5vh;
   background-color: white;
-  border: 1px solid
+  border: 1px solid;
 }
-
-
-
 
 /* -----------------------------------
 IPHONE 
@@ -97,39 +103,40 @@ IPHONE
 
 @media only screen and (max-width: 450px) {
   .loginpage_smallestsize {
-    font-size: 8px
+    font-size: 8px;
   }
 }
 
 @media only screen and (min-width: 451px) and (max-width: 500px) {
   .loginpage_smallestsize {
-    font-size: 10px
+    font-size: 10px;
   }
 }
 
 @media only screen and (min-width: 501px) {
   .loginpage_smallestsize {
-    font-size: 12px
+    font-size: 12px;
   }
 }
 
 @media only screen and (max-height: 570px) {
   #innerlogincontainer {
-    display: block!important;
-    width: auto!important;
-    height: auto!important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
   }
   #loginarea {
-    position: inherit!important
+    position: inherit !important;
   }
   .desktop {
-    display: none
+    display: none;
   }
   #login_footer {
-    display: block!important;
-    position: inherit!important
+    display: block !important;
+    position: inherit !important;
   }
 }
 
-@media only screen and (min-height: 751px) {}
+@media only screen and (min-height: 751px) {
+}
 </style> 
