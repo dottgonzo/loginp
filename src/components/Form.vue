@@ -6,7 +6,7 @@
 
 
     <div class="group" style="margin-bottom:30px;">      
-      <input v-model="email" type="text" required>
+      <input v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="email" type="text" required>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
@@ -14,7 +14,7 @@
 
 
     <div class="group" style="margin-bottom:30px;">      
-      <input v-model="passw" type="password" required>
+      <input v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="passw" type="password" required>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
