@@ -105,6 +105,9 @@ export default {
             .then(function(answer) {
               if (answer && !answer.error) {
                 callback(answer.data);
+              } else if (answer.data.error) {
+                console.error(answer.data.error);
+                setError(["email", "password"]);
               } else if (answer.error) {
                 console.error(answer.error);
                 setError(["email", "password"]);
