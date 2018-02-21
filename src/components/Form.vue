@@ -78,13 +78,12 @@ export default {
         for (let i = 0; i < errors.length; i++) {
           document.getElementById("inpgoup_" + errors[i]).className =
             "group invalid";
+          console.error("validate error " + errors[i]);
         }
       }
 
       if (e && p) {
-        console.log(
-          "email: " + e + " password: " + p + " serverUri: " + serverUri
-        );
+        // console.log("email: " + e + " password: " + p + " serverUri: " + serverUri);
         let errrr = [];
         if (
           e.length < 5 ||
@@ -98,7 +97,7 @@ export default {
           errrr.push("password");
         }
 
-        if (errrr) return setError(errrr);
+        if (errrr.length) return setError(errrr);
 
         if (R) {
           axios
@@ -128,7 +127,7 @@ export default {
                 console.error(answer.error);
                 setError(["email", "password"]);
               } else {
-                console.error("");
+                console.error("err");
                 setError(["email", "password"]);
               }
             })
@@ -146,15 +145,15 @@ export default {
         setError(["password"]);
         document.getElementById("inpgoup_email").className = "group";
       } else {
-        console.log("??????");
+        console.error("??????");
         setError(["email", "password"]);
       }
     },
     switchmode: s => {
-      console.log(s.state.registerMode); // -> 1
+      // console.log(s.state.registerMode); // -> 1
 
       s.commit("switchMode");
-      console.log(s.state.registerMode); // -> 1
+      // console.log(s.state.registerMode); // -> 1
     }
   }
 };
