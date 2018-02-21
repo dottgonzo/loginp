@@ -124,13 +124,16 @@ export default {
           axios
             .post(serverUri + "/auth/local/login", { email: e, passwd: p })
             .then(function(answer) {
-              if (answer && !answer.error) {
+              if (answer && !answer.data.error && !answer.error) {
                 callback(answer.data);
+              } else if (answer.data.error) {
+                console.error('',answer.data.error);
+                setError(["email", "password"]);
               } else if (answer.error) {
                 console.error(answer.error);
                 setError(["email", "password"]);
               } else {
-                console.error("err");
+                console.error("");
                 setError(["email", "password"]);
               }
             })
