@@ -20,7 +20,6 @@ function getLang() {
   }
 }
 
-
 window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style) {
   if (!serverUri) throw (Error('no serverUri provided'))
   if (!authenticators) throw (Error('no authenticators provided'))
@@ -54,7 +53,6 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
   if (!style.buttonColor) style.buttonColor = defaultStyle.buttonColor
   if (!style.footerBorderColor) style.footerBorderColor = defaultStyle.footerBorderColor
   if (!style.contentBorderColor) style.contentBorderColor = defaultStyle.contentBorderColor
-
 
   const defaultBrand = {
     title: 'brand title',
