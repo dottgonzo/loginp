@@ -7,7 +7,7 @@
 
     <div id="inpgoup_email" class="group" style="margin-bottom:30px;">      
       <input v-on:keyup="changeinput('email')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="email" type="text" required>
-      <span class="highlight"></span>
+      <span id="inpglabel_email" class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
     </div>
@@ -15,7 +15,7 @@
 
     <div id="inpgoup_password" class="group" style="margin-bottom:30px;">      
       <input v-on:keyup="changeinput('password')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="passw" type="password" required>
-      <span class="highlight"></span>
+      <span id="inpglabel_password" class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
     </div>
@@ -78,6 +78,7 @@ export default {
         for (let i = 0; i < errors.length; i++) {
           document.getElementById("inpgoup_" + errors[i]).className =
             "group invalid";
+          // document.getElementById("inpglabel_" + errors[i]).className = "invalid";
           console.error("validate error " + errors[i]);
         }
       }
@@ -106,7 +107,7 @@ export default {
               if (answer && !answer.data.error && !answer.error) {
                 callback(answer.data);
               } else if (answer.data.error) {
-                console.error('',answer.data.error);
+                console.error(answer.data.error);
                 setError(["email", "password"]);
               } else if (answer.error) {
                 console.error(answer.error);
