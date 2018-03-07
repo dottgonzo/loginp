@@ -6,7 +6,7 @@
 
 
     <div id="inpgoup_email" class="group" style="margin-bottom:30px;">      
-      <input v-on:keyup="changeinput('email')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="email" type="text" required>
+      <input v-on:keyup="changeinput('email')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="email" type="text" required>
       <span id="inpglabel_email" class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
@@ -14,7 +14,7 @@
 
 
     <div id="inpgoup_password" class="group" style="margin-bottom:30px;">      
-      <input v-on:keyup="changeinput('password')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)" v-model="passw" type="password" required>
+      <input v-on:keyup="changeinput('password')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="passw" type="password" required>
       <span id="inpglabel_password" class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
@@ -28,9 +28,9 @@
         <input type="checkbox" style="float:left;width:auto!important;margin-right:8px"> {{$t("accept")}} <a v-bind:href="$store.state.brand.termsLink">{{$t("termsconditions")}}</a>
         </div>
 
-
+<div id="errorMsg" style="margin:5px auto 10px auto;text-align:center;height:20px;font-weight:bold;color:red"></div>
 <div>
-      <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds)">
+      <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)">
         <span v-if="$store.state.registerMode">
           {{$t("register")}}
         </span>
@@ -70,10 +70,14 @@ export default {
       // }
       document.getElementById("inpgoup_email").className = "group";
       document.getElementById("inpgoup_password").className = "group";
+      document.getElementById("errorMsg").style.display = "none";
     },
-    authLocal: (e, p, serverUri, R, callback) => {
+    authLocal: (e, p, serverUri, R, callback, loginErr) => {
       const that = this;
-
+      function showError(error) {
+        document.getElementById("errorMsg").innerHTML = error;
+        document.getElementById("errorMsg").style.display = "block";
+      }
       function setError(errors) {
         for (let i = 0; i < errors.length; i++) {
           document.getElementById("inpgoup_" + errors[i]).className =
@@ -98,7 +102,10 @@ export default {
           errrr.push("password");
         }
 
-        if (errrr.length) return setError(errrr);
+        if (errrr.length) {
+          showError("credenziali errate");
+          return setError(errrr);
+        }
 
         if (R) {
           axios
@@ -109,17 +116,37 @@ export default {
               } else if (answer.data.error) {
                 console.error(answer.data.error);
                 setError(["email", "password"]);
+                showError(answer.data.error);
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               } else if (answer.error) {
                 console.error(answer.error);
                 setError(["email", "password"]);
+                showError(answer.error);
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               } else {
                 console.error("");
                 setError(["email", "password"]);
+                showError("undefined error");
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               }
             })
             .catch(function(err) {
               console.error(err);
               setError(["email", "password"]);
+              showError("server error");
+              loginErr({ invalid: ["email", "password"] });
             });
         } else {
           axios
@@ -128,32 +155,66 @@ export default {
               if (answer && !answer.data.error && !answer.error) {
                 callback(answer.data);
               } else if (answer.data.error) {
-                console.error('',answer.data.error);
+                console.error("", answer.data.error);
+                showError(answer.data.error);
                 setError(["email", "password"]);
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               } else if (answer.error) {
                 console.error(answer.error);
                 setError(["email", "password"]);
+                showError(answer.error);
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               } else {
                 console.error("");
                 setError(["email", "password"]);
+                showError("undefined error");
+                if (loginErr)
+                  loginErr({
+                    type: "validation",
+                    entry: ["email", "password"]
+                  });
               }
             })
             .catch(function(err) {
               console.error(err);
               setError(["email", "password"]);
+              showError("server error");
+              if (loginErr)
+                loginErr({ type: "validation", entry: ["email", "password"] });
             });
         }
       } else if (!e && !p) {
         setError(["email", "password"]);
+        showError("Inserire credenziali");
+        if (loginErr)
+          loginErr({ type: "validation", entry: ["email", "password"] });
       } else if (!e) {
         setError(["email"]);
+        showError("Email errato");
+        showError("Inserire Email");
         document.getElementById("inpgoup_password").className = "group";
+        if (loginErr)
+          loginErr({ type: "validation", entry: ["email", "password"] });
       } else if (!p) {
         setError(["password"]);
+        showError("Inserire Password");
         document.getElementById("inpgoup_email").className = "group";
+        if (loginErr)
+          loginErr({ type: "validation", entry: ["email", "password"] });
       } else {
         console.error("??????");
         setError(["email", "password"]);
+        showError("Errore indefinito");
+        if (loginErr)
+          loginErr({ type: "validation", entry: ["email", "password"] });
       }
     },
     switchmode: s => {

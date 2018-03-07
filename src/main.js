@@ -20,7 +20,7 @@ function getLang() {
   }
 }
 
-window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style) {
+window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr) {
   if (!serverUri) throw (Error('no serverUri provided'))
   if (!authenticators) throw (Error('no authenticators provided'))
   if (!mountId || !document.getElementById(mountId)) throw (Error('no mountId provided'))
@@ -78,6 +78,7 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
       serverUri: serverUri,
       registerMode: false,
       loginSucceeds: loginSucceeds,
+      loginErr: loginErr,
       brand: brand,
       style: style
     },

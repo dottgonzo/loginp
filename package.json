@@ -21,7 +21,8 @@
     "dev": "npm-run-all --parallel watchify serve",
     "lint": "eslint --ext .js,.vue src test/unit",
     "test": "karma start karma.conf.js",
-    "build": "cross-env NODE_ENV=production browserify -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
+    "build": "cross-env NODE_ENV=production browserify -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js",
+    "release:patch": "npm version patch && git push && git push --tags"
   },
   "browserify": {
     "transform": [
@@ -55,7 +56,7 @@
     "eslint-plugin-html": "^1.5.2",
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^2.0.0",
-    "http-server": "^0.9.0",
+    "http-server": "^0.11.1",
     "jasmine-core": "^2.4.1",
     "karma": "^1.2.0",
     "karma-browserify": "^5.1.0",
