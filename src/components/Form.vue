@@ -116,7 +116,11 @@ export default {
               } else if (answer.data.error) {
                 console.error(answer.data.error);
                 setError(["email", "password"]);
-                showError(answer.data.error);
+                if (answer.data.error === "unauthorized") {
+                  showError("account non autorizzato");
+                } else {
+                  showError(answer.data.error);
+                }
                 if (loginErr)
                   loginErr({
                     type: "validation",
@@ -156,7 +160,11 @@ export default {
                 callback(answer.data);
               } else if (answer.data.error) {
                 console.error("", answer.data.error);
-                showError(answer.data.error);
+                if (answer.data.error === "unauthorized") {
+                  showError("account non autorizzato");
+                } else {
+                  showError(answer.data.error);
+                }
                 setError(["email", "password"]);
                 if (loginErr)
                   loginErr({
