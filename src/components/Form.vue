@@ -106,7 +106,7 @@ export default {
           showError("credenziali errate");
           return setError(errrr);
         }
-
+        e = e.replace(/ /g, "");
         if (R) {
           axios
             .post(serverUri + "/auth/local/register", { email: e, passwd: p })
