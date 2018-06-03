@@ -64,7 +64,9 @@
                 </a>
         </span>
 
-
+               <span v-else-if="$store.state.mode=='pwdripristined'">
+                  Credenziali ripristinate!  <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a>
+                </span>
                 <span v-else-if="$store.state.mode=='recoversended'">
                   Per finalizzare il cambio password clicca sul link che riceverai presso la tua email
                 </span>
@@ -311,11 +313,10 @@ export default {
       const datatosend = {
         email: e,
         redirectTo: location.href + "?setnewwithcode=true",
-        subject:s.state.recoverMail.subject,
-        from:s.state.recoverMail.from,
-        companyName:s.state.recoverMail.companyName
+        subject: s.state.recoverMail.subject,
+        from: s.state.recoverMail.from,
+        companyName: s.state.recoverMail.companyName
       };
-
 
       axios
         .post(serverUri + "/auth/local/recovergen", datatosend)
@@ -396,7 +397,7 @@ export default {
               document.getElementById("inpgouprecover_1").className = "group";
               document.getElementById("inpgouprecover_2").className = "group";
               document.getElementById("errorMsg").style.display = "none";
-              s.commit("switchMode", "login");
+              s.commit("switchMode", "pwdripristined");
               return console.log("sended request for password reset");
             } else {
               setError(["1", "2"]);
