@@ -18,10 +18,10 @@ const translation = require('../translation')
 
 window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr, recoverMail) {
   function getLang() {
-    if (navigator.languages !== undefined) {
-      return navigator.languages[0]
-    } else if (navigator.language) {
-      return navigator.language
+    if (window.navigator.languages !== undefined) {
+      return window.navigator.languages[0]
+    } else if (window.navigator.language) {
+      return window.navigator.language
     } else {
       return 'en'
     }
