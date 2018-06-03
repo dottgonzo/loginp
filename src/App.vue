@@ -14,22 +14,22 @@
               <div style="display:inline-block">{{$store.state.brand.title}}</div>
             </div>
           </div>
-          <div v-if="authenticators.length>0" style="margin:25px auto 15px auto;font-size:26px">
+          <div v-if="authenticators.length>0 && $store.state.mode!='recover'" style="margin:25px auto 15px auto;font-size:26px">
 
-            <span v-if="$store.state.registerMode">{{$t("register")}}</span>
-            <span v-else>{{$t("login")}}</span>
+            <span v-if="$store.state.mode=='register'">{{$t("register")}}</span>
+            <span v-else-if="$store.state.mode=='login'">{{$t("login")}}</span>
             {{$t("with")}}
 
 
-      </div>
+          </div>
 
         </div>
-        <div style="text-align:center;margin-bottom:10px">
+        <div style="text-align:center;margin-bottom:10px" v-if="$store.state.mode!='recover'">
           <span style="width:80px;text-align:center;display:inline-block" v-for="a in authenticators">
             <providerlink v-bind:authenticator="a" />
           </span>
         </div>
-        <div v-if="authenticators.length>0" style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+        <div v-if="authenticators.length>0 && $store.state.mode!='recover'" style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
           <span style="font-size: 30px; background-color: white; padding: 0 20px;">
             {{$t("or")}}
             <!--Padding is optional-->
@@ -81,6 +81,7 @@ export default {
       this.$store.state.authenticators
     );
     lman.onLogin(this.$store.state.loginSucceeds);
+    if(window.location.href.split('setnewwithcode').length>1) this.$store.commit("switchMode", 'setnewwithcode')
   }
 };
 </script>

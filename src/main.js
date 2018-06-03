@@ -20,7 +20,13 @@ function getLang() {
   }
 }
 
-window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr) {
+// style
+
+// brand
+
+// opts:{serverUri:string, authenticators:any[], mountId:string, loginSucceeds:Function, brand, style, loginErr:Function, recoverMail}
+
+window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr, recoverMail) {
   if (!serverUri) throw (Error('no serverUri provided'))
   if (!authenticators) throw (Error('no authenticators provided'))
   if (!mountId || !document.getElementById(mountId)) throw (Error('no mountId provided'))
@@ -70,21 +76,29 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
   if (!brand.brandLink) brand.brandLink = defaultBrand.brandLink
   if (!brand.creditsLink) brand.creditsLink = defaultBrand.creditsLink
 
+  if (!recoverMail) recoverMail = {}
+
+  if (!recoverMail.companyName) recoverMail.companyName = brand.title
+
+  if (!recoverMail.subject) recoverMail.subject = 'Recovering mail test'
+  if (!recoverMail.from) recoverMail.from = 'Login Manager <dev@dariocaruso.info>'
+
   // draw the page
   // $('#' + mountId).html('<page-auth />')
   const store = new Vuex.Store({ // eslint-disable-line no-new
     state: {
       authenticators: authenticators,
       serverUri: serverUri,
-      registerMode: false,
+      mode: 'login',
       loginSucceeds: loginSucceeds,
       loginErr: loginErr,
       brand: brand,
-      style: style
+      style: style,
+      recoverMail: recoverMail
     },
     mutations: {
-      switchMode(state) {
-        state.registerMode = !state.registerMode
+      switchMode(state, mode) {
+        state.mode = mode
       }
     }
   })

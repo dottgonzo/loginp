@@ -8,7 +8,13 @@
         "with":"with",
         "or":"or",
         "termsconditions":"Terms and Conditions",
-        "accept":"Accept the"
+        "accept":"Accept the",
+        "send": "Send",
+        "remembered":"Do you remember the password",
+        "passwforget":"do you forget password",
+        "newpswlabel": "New Password",
+        "repeatnewpswlabel": "Repeat Password",
+        "changepswbtn":"Update Password"
     },
     "it": {
         "login": "Entra",
@@ -19,6 +25,13 @@
         "with":"con",
         "or":"o",
         "termsconditions":"Termini e le Condizioni",
-        "accept":"Accetta i"
+        "accept":"Accetta i",
+        "send": "Invia",
+        "remembered":"Ricordi la password",
+        "passwforget":"password dimemticata",
+        "newpswlabel": "Nuova Password",
+        "repeatnewpswlabel": "Ripeti Password",
+        "changepswbtn":"changepswbtn",
+        "changepswbtn":"Aggiorna Password"
     }
 }

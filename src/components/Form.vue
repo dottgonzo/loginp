@@ -4,47 +4,92 @@
   <form>
     <div class="container">
 
+    <div v-if="$store.state.mode=='setnewwithcode'">
+      <div id="inpgoup_password_change1" class="group" style="margin-bottom:30px;"> 
+      <input v-on:keyup="changeinput('1',$store.state.mode)" v-on:keyup.enter="changepasswwithcode()" v-model="chpassword1" id="inpgouprecover_1" type="password" required>
+      <span id="inpglabel_password_change1" class="highlight"></span>
+      <span class="bar"></span>
+      <label>{{$t("newpswlabel")}}</label>
+    </div>
+          <div id="inpgoup_password_change2" class="group" style="margin-bottom:30px;"> 
+      <input v-on:keyup="changeinput('2',$store.state.mode)" v-on:keyup.enter="changepasswwithcode()" v-model="chpassword2" id="inpgouprecover_2" type="password" required>
+      <span id="inpglabel_password_change2" class="highlight"></span>
+      <span class="bar"></span>
+      <label>{{$t("repeatnewpswlabel")}}</label>
+    </div>
+    </div>
 
-    <div id="inpgoup_email" class="group" style="margin-bottom:30px;">      
-      <input v-on:keyup="changeinput('email')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="email" type="text" required>
+    <div v-if="$store.state.mode=='login'||$store.state.mode=='register'||$store.state.mode=='recover'" id="inpgoup_email" class="group" style="margin-bottom:30px;">      
+      <input v-on:keyup="changeinput('email',$store.state.mode )" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.mode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="email" type="text" required>
       <span id="inpglabel_email" class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
     </div>
 
 
-    <div id="inpgoup_password" class="group" style="margin-bottom:30px;">      
-      <input v-on:keyup="changeinput('password')" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="passw" type="password" required>
+    <div v-if="$store.state.mode=='login'||$store.state.mode=='register'" id="inpgoup_password" class="group" style="margin-bottom:30px;">      
+      <input v-on:keyup="changeinput('password',$store.state.mode)" v-on:keyup.enter="authLocal(email,passw,$store.state.serverUri,$store.state.mode,$store.state.loginSucceeds,$store.state.loginErr)" v-model="passw" type="password" required>
       <span id="inpglabel_password" class="highlight"></span>
       <span class="bar"></span>
       <label>Password</label>
     </div>
       
+        <span style="float:right;margin-top:-20px;margin-bottom:10px" v-if="$store.state.mode=='login'">
 
+
+          <a href="javascript:void(0)" v-on:click="switchmode($store,'recover')">{{$t("passwforget")}}?</a>
+        </span>
     
 </div>
 
-      <div style="margin:10px auto 30px 10px" v-if="$store.state.registerMode">
+      <div style="margin:10px auto 30px 10px" v-if="$store.state.mode=='register'">
         <input type="checkbox" style="float:left;width:auto!important;margin-right:8px"> {{$t("accept")}} <a v-bind:href="$store.state.brand.termsLink">{{$t("termsconditions")}}</a>
         </div>
 
 <div id="errorMsg" style="margin:5px auto 10px auto;text-align:center;height:20px;font-weight:bold;color:red"></div>
 <div>
-      <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.registerMode,$store.state.loginSucceeds,$store.state.loginErr)">
-        <span v-if="$store.state.registerMode">
-          {{$t("register")}}
-        </span>
-        <span v-else>
-          {{$t("login")}}
+
+        <span v-if="$store.state.mode=='recover'">
+                <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="recoverpassw($store,email,$store.state.serverUri,$store.state.mode)">
+
+          {{$t("send")}}
+                </a>
         </span>
 
+
+        <span v-if="$store.state.mode=='setnewwithcode'">
+                <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="changepasswwithcode($store,chpassword1,chpassword2,$store.state.serverUri)">
+
+          {{$t("changepswbtn")}}
+                </a>
+        </span>
+
+
+                <span v-else-if="$store.state.mode=='recoversended'">
+                  Per finalizzare il cambio password clicca sul link che riceverai presso la tua email
+                </span>
+        <span v-else-if="$store.state.mode=='register'||$store.state.mode=='login'">
+
+      <a class="loginpage_button" v-bind:style="{marginLeft:'10px',backgroundColor:$store.state.style.buttonColor}" href="javascript:void(0)" v-on:click="authLocal(email,passw,$store.state.serverUri,$store.state.mode,$store.state.loginSucceeds,$store.state.loginErr)">
+        <span v-if="$store.state.mode=='register'">
+          {{$t("register")}}
+        </span>
+        <span v-else-if="$store.state.mode=='login'">
+          {{$t("login")}}
+        </span>
       </a>
+        </span>
+
+
+
     </div>
     <div v-if="!$store.state.brand.notAllowRegitration" style="margin-top:30px;text-align:center">
 
     
-      <span v-if="$store.state.registerMode">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("login")}} {{$t("here")}}</a></span>
-      <span v-else>{{$t("notamember")}}? <a href="javascript:void(0)" v-on:click="switchmode($store)">{{$t("register")}} {{$t("here")}}</a></span>
+      <span v-if="$store.state.mode=='register'">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
+      <span v-else-if="$store.state.mode=='login'">{{$t("notamember")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'register')">{{$t("register")}} {{$t("here")}}</a></span>
+      <span v-if="$store.state.mode=='recover'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
+      <span v-if="$store.state.mode=='recoversended'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
 
 
 
@@ -62,15 +107,23 @@ import * as axios from "axios";
 export default {
   name: "loginform",
   methods: {
-    changeinput: iputtype => {
+    changeinput: (iputtype, mode) => {
+      console.log(mode);
       // const inputclass = document.getElementById("inpgoup_" + iputtype)
       //   .className;
       // if (inputclass.split(" ").includes("invalid")) {
       //   document.getElementById("inpgoup_" + iputtype).className = "group";
       // }
-      document.getElementById("inpgoup_email").className = "group";
-      document.getElementById("inpgoup_password").className = "group";
-      document.getElementById("errorMsg").style.display = "none";
+      if (mode === "setnewwithcode") {
+        document.getElementById("inpgouprecover_1").className = "group";
+        document.getElementById("inpgouprecover_2").className = "group";
+        document.getElementById("errorMsg").style.display = "none";
+      } else {
+        document.getElementById("inpgoup_email").className = "group";
+        if (mode != "recover")
+          document.getElementById("inpgoup_password").className = "group";
+        document.getElementById("errorMsg").style.display = "none";
+      }
     },
     authLocal: (e, p, serverUri, R, callback, loginErr) => {
       const that = this;
@@ -107,7 +160,7 @@ export default {
           return setError(errrr);
         }
         e = e.replace(/ /g, "");
-        if (R) {
+        if (R === "register") {
           axios
             .post(serverUri + "/auth/local/register", { email: e, passwd: p })
             .then(function(answer) {
@@ -206,7 +259,7 @@ export default {
           loginErr({ type: "validation", entry: ["email", "password"] });
       } else if (!e) {
         setError(["email"]);
-        showError("Email errato");
+        showError("Email errata");
         showError("Inserire Email");
         document.getElementById("inpgoup_password").className = "group";
         if (loginErr)
@@ -225,11 +278,148 @@ export default {
           loginErr({ type: "validation", entry: ["email", "password"] });
       }
     },
-    switchmode: s => {
-      // console.log(s.state.registerMode); // -> 1
+    recoverpassw: (s, e, serverUri, mode) => {
+      const that = this;
+      function showError(error) {
+        document.getElementById("errorMsg").innerHTML = error;
+        document.getElementById("errorMsg").style.display = "block";
+        console.error(error);
+        console.error(JSON.stringify(error));
+      }
+      function setError(errors) {
+        for (let i = 0; i < errors.length; i++) {
+          document.getElementById("inpgoup_" + errors[i]).className =
+            "group invalid";
+          // document.getElementById("inpglabel_" + errors[i]).className = "invalid";
+          console.error("validate error " + errors[i]);
+        }
+      }
+      if (!e) {
+        setError(["email"]);
+        return showError("Email errata");
+      }
 
-      s.commit("switchMode");
-      // console.log(s.state.registerMode); // -> 1
+      if (
+        e.length < 5 ||
+        e.split("@").length !== 2 ||
+        e.split(".").length < 2
+      ) {
+        showError("email errata");
+        return setError(["email"]);
+      }
+
+      const datatosend = {
+        email: e,
+        redirectTo: location.href + "?setnewwithcode=true",
+        subject:s.state.recoverMail.subject,
+        from:s.state.recoverMail.from,
+        companyName:s.state.recoverMail.companyName
+      };
+
+
+      axios
+        .post(serverUri + "/auth/local/recovergen", datatosend)
+        .then(answer => {
+          console.log(answer.data);
+          if (!answer.data) {
+            setError(["email"]);
+            return showError("Errore indefinito");
+          } else if (answer.data.error) {
+            setError(["email"]);
+            return showError(answer.data.error);
+          } else if (answer.data.ok) {
+            s.commit("switchMode", "recoversended");
+            return console.log("sended request for password reset");
+          } else {
+            setError(["email"]);
+            return showError("unknown response from server: " + answer.data);
+          }
+        })
+        .catch(err => {
+          setError(["email"]);
+          return showError("wrong response from server: " + err);
+        });
+    },
+    changepasswwithcode: (s, p1, p2, serverUri) => {
+      const that = this;
+      function showError(error) {
+        document.getElementById("errorMsg").innerHTML = error;
+        document.getElementById("errorMsg").style.display = "block";
+        console.error(error);
+        console.error(JSON.stringify(error));
+      }
+      function setError(errors) {
+        console.log("ersssssssssssssrors", errors);
+        for (let i = 0; i < errors.length; i++) {
+          console.log("inpglabel_password_change" + errors[i]);
+          document.getElementById(
+            "inpglabel_password_change" + errors[i]
+          ).className =
+            "group invalid";
+          // document.getElementById("inpglabel_" + errors[i]).className = "invalid";
+          console.error("validate error " + errors[i]);
+        }
+      }
+      if (p1 && p2) {
+        let errrr = [];
+
+        if (p1.length < 5) {
+          errrr.push("1");
+        }
+
+        if (p1 !== p2) {
+          errrr.push("2");
+        }
+
+        if (errrr.length > 0) {
+          showError("password " + errrr + " errata");
+          return setError(errrr);
+        }
+        if (!window.location.href.split("pwtoken=")[1]) {
+          showError("code inesistent");
+          return setError("code inesistent");
+        }
+        axios
+          .post(serverUri + "/auth/local/recoverpw", {
+            code: window.location.href.split("pwtoken=")[1].split("&")[0],
+            updatedPassword: p1
+          })
+          .then(answer => {
+            console.log(answer.data);
+            if (!answer.data) {
+              setError(["1", "2"]);
+              return showError("Errore indefinito");
+            } else if (answer.data.error) {
+              setError(["1", "2"]);
+              return showError(answer.data.error);
+            } else if (answer.data.ok) {
+              document.getElementById("inpgouprecover_1").className = "group";
+              document.getElementById("inpgouprecover_2").className = "group";
+              document.getElementById("errorMsg").style.display = "none";
+              s.commit("switchMode", "login");
+              return console.log("sended request for password reset");
+            } else {
+              setError(["1", "2"]);
+              return showError("unknown response from server: " + answer.data);
+            }
+          })
+          .catch(err => {
+            setError(["email"]);
+            return showError("wrong response from server: " + err);
+          });
+      } else if (!p1) {
+        showError("password error");
+        return setError(["1"]);
+      } else if (!p2) {
+        showError("password diverse");
+        return setError(["2"]);
+      }
+    },
+    switchmode: (s, m) => {
+      // console.log(s.state.mode); // -> 1
+
+      s.commit("switchMode", m);
+      // console.log(s.state.mode); // -> 1
     }
   }
 };
