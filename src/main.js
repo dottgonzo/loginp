@@ -110,7 +110,9 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
 
   new Vue({ // eslint-disable-line no-new
     el: '#' + mountId,
-    render: (h) => h(App),
+    render: function(h) {
+      h(App)
+    },
     store: store,
     i18n
   })
