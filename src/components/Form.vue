@@ -90,12 +90,13 @@
     
       <span v-if="$store.state.mode=='register'">{{$t("registered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
       <span v-else-if="$store.state.mode=='login'">{{$t("notamember")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'register')">{{$t("register")}} {{$t("here")}}</a></span>
-      <span v-if="$store.state.mode=='recover'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
-      <span v-if="$store.state.mode=='recoversended'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></span>
 
 
 
 </div>
+
+      <div v-else-if="$store.state.mode=='recoversended'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
+      <div v-else-if="$store.state.mode=='recover'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
 
   </form>
 
