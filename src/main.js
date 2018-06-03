@@ -10,6 +10,17 @@ Vue.use(Vuex)
 Vue.use(VueI18n)
 const translation = require('../translation')
 
+function getLang() {
+  console.log(window.navigator, translation)
+  if (window.navigator.languages !== undefined) {
+    return window.navigator.languages[0]
+  } else if (window.navigator.language) {
+    return window.navigator.language
+  } else {
+    return 'en'
+  }
+}
+
 // style
 
 // brand
@@ -17,16 +28,7 @@ const translation = require('../translation')
 // opts:{serverUri:string, authenticators:any[], mountId:string, loginSucceeds:Function, brand, style, loginErr:Function, recoverMail}
 
 window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr, recoverMail) {
-  function getLang() {
-    console.log(window.navigator, translation)
-    if (window.navigator.languages !== undefined) {
-      return window.navigator.languages[0]
-    } else if (window.navigator.language) {
-      return window.navigator.language
-    } else {
-      return 'en'
-    }
-  }
+
 
   if (!serverUri) throw (Error('no serverUri provided'))
   if (!authenticators) throw (Error('no authenticators provided'))
@@ -113,7 +115,7 @@ window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, 
     el: '#' + mountId,
     render: (h) => h(App),
     store: store,
-    i18n
+    i18n: i18n
   })
   // mount the page
 }
