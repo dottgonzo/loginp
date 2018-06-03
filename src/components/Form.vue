@@ -95,8 +95,8 @@
 
 </div>
 
-      <div v-else-if="$store.state.mode=='recoversended'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
-      <div v-else-if="$store.state.mode=='recover'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
+      <div v-if="$store.state.mode=='recoversended'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
+      <div v-if="$store.state.mode=='recover'">{{$t("remembered")}}? <a href="javascript:void(0)" v-on:click="switchmode($store,'login')">{{$t("login")}} {{$t("here")}}</a></div>
 
   </form>
 
