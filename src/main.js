@@ -18,7 +18,7 @@ const translation = require('../translation')
 
 window['loadLoginPage'] = function loadPage(serverUri, authenticators, mountId, loginSucceeds, brand, style, loginErr, recoverMail) {
   function getLang() {
-    console.log(window.navigator)
+    console.log(window.navigator, translation)
     if (window.navigator.languages !== undefined) {
       return window.navigator.languages[0]
     } else if (window.navigator.language) {
