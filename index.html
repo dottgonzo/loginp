@@ -21,7 +21,18 @@
       provider: 'facebook'
     }
 
-    window.login = loadLoginPage('http://localhost:3000', [testGoogle, testFacebook], 'logincontent', function (userdata) {
+
+    var testTwitter = {
+      clientId: 'XXXXXXXXXXXXX',
+      provider: 'twitter'
+    }
+
+    var testGithub = {
+      clientId: 'XXXXXXXXXXXXX',
+      provider: 'github'
+    }
+
+    window.login = loadLoginPage('http://localhost:3000', [testGoogle, testFacebook, testTwitter, testGithub], 'logincontent', function (userdata) {
       console.log('logoooooooin')
       console.log(userdata)
 
